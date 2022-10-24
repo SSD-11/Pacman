@@ -24,7 +24,7 @@ var Pantallas = {
                     punto.clip = new Rectangle(0, 0, 9, 8);
                     punto.transform.setSize(new Size(4, 4));
                     punto.transform.setPosition(new Point(this.posicionPuntos.x + (i * 26), this.posicionPuntos.y + (x * 26)));
-                    punto.punto = {value: 1, img: punto};
+                    punto.punto = {value: 10, img: punto};
                     this.puntos.push(punto.punto);
                     miJerarquia.Add(punto);
 
@@ -47,19 +47,19 @@ var Pantallas = {
                     this.puntos.push(punto.punto);
                     miJerarquia.Add(punto);
 
-                    var comePastilla = new AudioSource("sonidoComePastilla", "audios/comePastilla.mp3", punto);
-                    comePastilla.spacial = false;
-                    comePastilla.volume = 0.3;
-                    comePastilla.onAwaike = false;
-                    comePastilla.loop = false;
-                    comePastilla.load();
+                    var wakaWaka = new AudioSource("sonidowakaWaka", "audios/come.mp3", punto);
+                    wakaWaka.spacial = false;
+                    wakaWaka.volume = 0.3;
+                    wakaWaka.onAwaike = false;
+                    wakaWaka.loop = false;
+                    wakaWaka.load();
 
                     new Collider("puntoGrandeCollider_" + i + "_" + x, punto);
                 }
             }
         }
         var index = 0
-        var colliders = [];
+        var colliders = [1000];
 
         colliders[index] = new Image("p" + index, ctx);
         colliders[index].load("images/p1.png", true);
@@ -544,10 +544,8 @@ var Pantallas = {
                 return true;
             }
         }
-
         return false;
     },
-
 
 };
 
@@ -585,23 +583,24 @@ var casillasPuntos = [
 ];
 
 
-document.addEventListener('onColliderEnter', function (e)  {
+document.addEventListener("onColliderEnter", function (e) {
 
-    if (e.sender.obj.transform.tag==="pacman" && e.collider.obj.transform.tag==="punto"){
+    if (e.sender.obj.transform.tag === "pacman" && e.collider.obj.transform.tag === "punto") {
         e.collider.obj.transform.enabled = false;
         e.collider.obj.transform.audioSources[0].Play();
         Pacman.score += e.collider.obj.punto.value;
     }
 
-    if (e.sender.obj.transform.tag==="pacman" && e.collider.obj.transform.tag==="puntoGrande"){
-
+    if (e.sender.obj.transform.tag === "pacman" && e.collider.obj.transform.tag === "puntoGrande") {
 
         if (Fantasmas.isModoHuida) return;
 
         e.collider.obj.transform.enabled = false;
         Pacman.score += e.collider.obj.punto.value;
         Fantasmas.activarModoHuida();
+
     }
+
 
 }, false);
 

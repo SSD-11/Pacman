@@ -10,7 +10,7 @@ var AUDIOS_PACMAN = {
 var Pacman = {
 
     bola: {},
-    dereccion: -1,
+    direccion: -1,
     velocidadPacmanAnim: 30,
     velocidadPacman: 3.5,
     velocidadPacmanRapido: 3.5,
@@ -90,7 +90,6 @@ var Pacman = {
         this.rigibody.gravity = false;
         this.rigibody.run();
 
-
         miJerarquia.Add(this.bola)
 
         var sonidoFantasmas1 = new AudioSource("sonidoFantasmas1", "audios/fantasmas.mp3", this.bola);
@@ -111,7 +110,7 @@ var Pacman = {
         sonidoFantasmasHuyen.spacial = false;
         sonidoFantasmasHuyen.volume = 0.3;
         sonidoFantasmasHuyen.onAwaike = false;
-        sonidoFantasmasHuyen.loop = false;
+        sonidoFantasmasHuyen.loop = true;
         sonidoFantasmasHuyen.load();
 
         var sonidoComeFantasma = new AudioSource("sonidoComeFantasma", "audios/comeFantasma.mp3", this.bola);
@@ -144,7 +143,7 @@ var Pacman = {
         if (Pacman.enabled) {
 
             if (!Pantallas.quedanPuntos()) {
-                Main.pantallaCompletada()
+                Main.pantallaCompletada();
                 return;
             }
 
@@ -180,7 +179,7 @@ var Pacman = {
                 }
             }
 
-            if (!Keyboard.keys["arrowLeft"] && !Keyboard.keys["arrowRight"] & !Keyboard.keys["arrowUp"] && !Keyboard.keys["arrowDown"]){
+            if (!Keyboard.keys["arrowLeft"] && !Keyboard.keys["arrowRight"] && !Keyboard.keys["arrowUp"] && !Keyboard.keys["arrowDown"]){
                 Pacman.pulsaTecha = false;
             }
 
@@ -213,4 +212,5 @@ document.addEventListener("onAnimationTerminated", function (e) {
         Pacman.bola.transform.enabled = false;
         UIDialogoStart.visible(true);
     }
+
 }, false);

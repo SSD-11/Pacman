@@ -2,7 +2,7 @@ var Fantasmas = {
 
     velocidadFantasmaAnim: 100,
 
-    enemigo: [4],
+    enemigo:[4],
     fantasmasActivos: false,
     velocidadFantasmasPersiguen: 3.6,
     velocidadFantasmasHuyen: 3.2,
@@ -408,7 +408,7 @@ var Fantasmas = {
         }
         Pacman.pararSonidos();
         Pacman.bola.transform.audioSources[AUDIOS_PACMAN.FantasmasHuyen].Play();
-        this.timerModoHuida = setTimeout(this.isModoHuida, 1);
+        this.timerModoHuida = setTimeout(this.modoHuida, 1);
         clearTimeout(t);
         var t = setTimeout(this.salirModoHuida, this.timeDuracionModoHuida);
     },
@@ -455,8 +455,7 @@ var Fantasmas = {
         Fantasmas.timerOjos = requestAnimationFrame(Fantasmas.moverOjos);
     }
 
-
-}
+};
 
 function aleatorio(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -464,10 +463,9 @@ function aleatorio(min, max) {
 
 document.addEventListener("onRigibodyColliderEnter", function (e) {
 
-    if (e.sender.obj.transform.tag == "pacman" && e.collider.transform.tag == "fantasma") {
+    if (e.sender.obj.transform.tag === "pacman" && e.collider.obj.transform.tag === "fantasma") {
         if (!e.collider.obj.transform.enabled) return;
         if (Fantasmas.isModoHuida) {
-
             e.collider.obj.transform.enabled = false;
             var ind = 0;
             switch (e.collider.obj.transform.id) {
